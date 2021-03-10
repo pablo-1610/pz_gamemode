@@ -1,16 +1,13 @@
 PZ = {}
 
-local function trace(str)
+PZ.trace = function(str)
     print("^2[INFOS]^7 "..str)
 end
-PZ.trace = trace
 
-local function warn(str)
+PZ.warn = function(str)
     print("^1[WARN]^7 "..str)
 end
-PZ.warn = warn
 
-local function debug(str)
+PZ.debug = function(str)
     print("^3[DEBUG]^7 "..str)
 end
-PZ.debug = debug
