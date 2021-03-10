@@ -27,39 +27,32 @@ local function freezePlayer(id, bool)
 end
 
 Citizen.CreateThread(function()
-    PZ.debug("Instance created, spawning (1/2)...")
+    PZ.debug("Instance created, spawning (1/4)...")
     while not NetworkIsPlayerActive(PlayerId()) do Wait(1) end
     freezePlayer(PlayerId(), true)
-    PZ.debug("Player is active, spawning (2/2)...")
+    PZ.debug("Player is active, spawning (2/4)...")
     local availableSpawns = PZ.config.base.defaultSpawns
     local selectedSpawn = availableSpawns[GetRandomIntInRange(1,#availableSpawns)]
     selectedSpawn.model = "a_m_m_socenlat_01"
-
+    PZ.debug("Requesting player model, spawning (3/4)...")
     PZ.utils.requestModel(selectedSpawn.model)
     selectedSpawn.model = PZ.utils.hash(selectedSpawn.model)
-
     SetPlayerModel(PlayerId(), selectedSpawn.model)
     SetModelAsNoLongerNeeded(selectedSpawn.model)
     RequestCollisionAtCoord(selectedSpawn.x, selectedSpawn.y, selectedSpawn.z)
-
     local ped = PlayerId()
-
     SetEntityCoordsNoOffset(ped, selectedSpawn.x, selectedSpawn.y, selectedSpawn.z, false, false, false, true)
-
     NetworkResurrectLocalPlayer(selectedSpawn.x, selectedSpawn.y, selectedSpawn.z, selectedSpawn.heading, true, true, false)
-
     ClearPedTasksImmediately(ped)
     RemoveAllPedWeapons(ped)
     ClearPlayerWantedLevel(PlayerId())
-
     local time = GetGameTimer()
-
     while (not HasCollisionLoadedAroundEntity(ped) and (GetGameTimer() - time) < 5000) do
         Citizen.Wait(0)
     end
-
     ShutdownLoadingScreen()
     freezePlayer(PlayerId(), false)
+    PZ.debug("Spawn done, spawning (4/4)...")
 end)
 
 
