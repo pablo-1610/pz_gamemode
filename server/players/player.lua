@@ -2,7 +2,7 @@
 ---@field public id number
 ---@field public name string
 PZPlayer = {}
-PZPlayer.__index = Actor
+PZPlayer.__index = PZPlayer
 
 setmetatable(PZPlayer, {
     __call = function(_, src)
@@ -48,6 +48,16 @@ function PZPlayer:getLicense()
         end
     end
     return "err"
+end
+
+---notify
+---
+--- Notify the player
+---
+---@public
+---@return void
+function PZPlayer:notify(str)
+    PZ.serverUtils.toClient("notifyPlayer", self.id, str)
 end
 
 

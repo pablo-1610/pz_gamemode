@@ -5,6 +5,7 @@ PZ.playersManager = {
     create = function(playerID)
         local player = PZPlayer(playerID)
         PZ.players[playerID] = player
+        PZ.debug("Creating a player ("..player.id.."), name: "..player.name)
     end,
 
     ---@return void
