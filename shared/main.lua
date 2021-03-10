@@ -9,5 +9,6 @@ PZ.warn = function(str)
 end
 
 PZ.debug = function(str)
+    if not PZ.config.devMode then return end
     print("^3[DEBUG]^7 "..str)
 end
