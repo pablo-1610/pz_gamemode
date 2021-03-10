@@ -35,8 +35,8 @@ Citizen.CreateThread(function()
     local selectedSpawn = availableSpawns[GetRandomIntInRange(1,#availableSpawns)]
     selectedSpawn.model = "a_m_m_socenlat_01"
     PZ.debug("Requesting player model, spawning (3/4)...")
-    PZ.utils.requestModel(selectedSpawn.model)
-    selectedSpawn.model = PZ.utils.hash(selectedSpawn.model)
+    PZ.clientUtils.requestModel(selectedSpawn.model)
+    selectedSpawn.model = PZ.clientUtils.hash(selectedSpawn.model)
     SetPlayerModel(PlayerId(), selectedSpawn.model)
     SetModelAsNoLongerNeeded(selectedSpawn.model)
     RequestCollisionAtCoord(selectedSpawn.x, selectedSpawn.y, selectedSpawn.z)
