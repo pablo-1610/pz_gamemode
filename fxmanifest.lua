@@ -1,6 +1,8 @@
 fx_version 'adamant'
 games { 'gta5' };
 
+resource_type 'gametype' { name = 'RolePlay' }
+
 shared_scripts {
     'shared/*.lua',
     'config/*.lua',
@@ -14,6 +16,8 @@ server_scripts {
 
 client_scripts {
     'client/*.lua',
+    'client/spawn/*.lua',
+    'client/utils/*.lua',
 
     -- Implemting RageUI 1.0
     "services/RageUI/client/RMenu.lua",
