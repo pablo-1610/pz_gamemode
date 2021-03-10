@@ -11,5 +11,16 @@ server_scripts {
 }
 
 client_scripts {
-    'client/*.lua'
+    'client/*.lua',
+
+    -- Implemting RageUI 1.0
+    "services/RageUI/client/RMenu.lua",
+    "services/RageUI/client/menu/RageUI.lua",
+    "services/RageUI/client/menu/Menu.lua",
+    "services/RageUI/client/menu/MenuController.lua",
+    "services/RageUI/client/components/*.lua",
+    "services/RageUI/client/menu/elements/*.lua",
+    "services/RageUI/client/menu/items/*.lua",
+    "services/RageUI/client/menu/panels/*.lua",
+    "services/RageUI/client/menu/windows/*.lua",
 }
