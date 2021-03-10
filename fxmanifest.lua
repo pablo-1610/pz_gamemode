@@ -3,7 +3,9 @@ games { 'gta5' };
 
 shared_scripts {
     'shared/*.lua',
-    'config/*.lua'
+    'config/*.lua',
+    'locales/main.lua',
+    'locales/lang/*.lua'
 }
 
 server_scripts {
