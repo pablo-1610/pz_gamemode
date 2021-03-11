@@ -1,1 +1,1 @@
-PZ.translation = {}
+PZTranslations = {}
