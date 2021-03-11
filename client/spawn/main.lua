@@ -26,16 +26,16 @@ local function freezePlayer(id, bool)
     end
 end
 
-Citizen.CreateThread(function()
+PZShared.newThread(function()
     PZShared.debug("Instance created, spawning (1/4)...")
     while not NetworkIsPlayerActive(PlayerId()) do Wait(1) end
     freezePlayer(PlayerId(), true)
     PZShared.debug("Player is active, spawning (2/4)...")
-    local availableSpawns = PZ.config.base.defaultSpawns
+    local availableSpawns = PZConfig.base.defaultSpawns
     local selectedSpawn = availableSpawns[GetRandomIntInRange(1,#availableSpawns)]
     selectedSpawn.model = "a_m_m_socenlat_01"
     PZShared.debug("Requesting player model, spawning (3/4)...")
-    PZ.clientUtils.requestModel(selectedSpawn.model)
+    PZClient.requestModel(selectedSpawn.model)
     selectedSpawn.model = PZShared.hash(selectedSpawn.model)
     SetPlayerModel(PlayerId(), selectedSpawn.model)
     SetModelAsNoLongerNeeded(selectedSpawn.model)
