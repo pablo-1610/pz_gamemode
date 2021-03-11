@@ -1,18 +1,38 @@
-PZ = {}
+---@class PZShared
+PZShared = {}
 
-PZ.trace = function(str)
-    print("^2[INFOS]^7 "..str)
+---trace
+---@public
+---@return void
+PZShared.trace = function(message)
+    print("^2[INFOS]^7 "..message)
 end
 
-PZ.warn = function(str)
-    print("^1[WARN]^7 "..str)
+---warn
+---@public
+---@return void
+PZShared.warn = function(message)
+    print("^1[WARN]^7 "..message)
 end
 
-PZ.debug = function(str)
+---debug
+---@public
+---@return void
+PZShared.debug = function(message)
     if not PZ.config.devMode then return end
-    print("^3[DEBUG]^7 "..str)
+    print("^3[DEBUG]^7 "..message)
 end
 
-PZ.sendInternal = function(str, ...)
-    TriggerEvent("pz:"..GetHashKey(str), ...)
+---sendInternal
+---@public
+---@return void
+PZShared.sendInternal = function(message, ...)
+    TriggerEvent("pz:"..PZShared.hash(message), ...)
+end
+
+---hash
+---@public
+---@return any
+PZShared.hash = function(notHashedModel)
+    return GetHashKey(notHashedModel)
 end
