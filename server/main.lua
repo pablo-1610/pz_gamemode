@@ -1,3 +1,3 @@
-Citizen.CreateThread(function()
+PZShared.newThread(function()
     PZShared.debug("The gamemode has been instancied, loading...")
 end)
