@@ -19,6 +19,7 @@ end
 ---@return void
 PZPlayersManager.remove = function(playerID)
     PZPlayersManager.players[playerID] = nil
+    PZShared.debug("Removed player (" .. playerID .. ")")
 end
 
 ---getPlayer
