@@ -12,14 +12,24 @@ shared_scripts {
 
 server_scripts {
     'server/*.lua',
+
     'server/utils/*.lua',
-    'server/players/*.lua'
+
+    'server/players/*.lua',
+
+    'server/listeners/*.lua'
 }
 
 client_scripts {
     'client/*.lua',
-    'client/spawn/*.lua',
+
     'client/utils/*.lua',
+
+    'client/spawn/*.lua',
+
+    'client/listeners/*.lua',
+
+    'client/richPresence/*.lua',
 
     -- Implemting RageUI 1.0
     "services/RageUI/client/RMenu.lua",
