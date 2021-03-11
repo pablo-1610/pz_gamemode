@@ -1,6 +1,10 @@
-PZ.clientUtils = {}
+---@class
+PZClient = {}
 
-PZ.clientUtils.requestModel = function(notHashedModel)
+---requestModel
+---@public
+---@return void
+PZClient.requestModel = function(notHashedModel)
     local model = GetHashKey(notHashedModel)
     RequestModel(model)
     while not HasModelLoaded(model) do
@@ -8,10 +12,9 @@ PZ.clientUtils.requestModel = function(notHashedModel)
     end
 end
 
-PZ.clientUtils.toServer = function(str, ...)
-    TriggerServerEvent("pz:" .. GetHashKey(str), ...)
-end
-
-PZ.clientUtils.hash = function(notHashedModel)
-    return GetHashKey(notHashedModel)
+---toServer
+---@public
+---@return void
+PZClient.toServer = function(eventName, ...)
+    TriggerServerEvent("pz:" .. PZShared.hash(eventName), ...)
 end
