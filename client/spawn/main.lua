@@ -27,16 +27,16 @@ local function freezePlayer(id, bool)
 end
 
 Citizen.CreateThread(function()
-    PZ.debug("Instance created, spawning (1/4)...")
+    PZShared.debug("Instance created, spawning (1/4)...")
     while not NetworkIsPlayerActive(PlayerId()) do Wait(1) end
     freezePlayer(PlayerId(), true)
-    PZ.debug("Player is active, spawning (2/4)...")
+    PZShared.debug("Player is active, spawning (2/4)...")
     local availableSpawns = PZ.config.base.defaultSpawns
     local selectedSpawn = availableSpawns[GetRandomIntInRange(1,#availableSpawns)]
     selectedSpawn.model = "a_m_m_socenlat_01"
-    PZ.debug("Requesting player model, spawning (3/4)...")
+    PZShared.debug("Requesting player model, spawning (3/4)...")
     PZ.clientUtils.requestModel(selectedSpawn.model)
-    selectedSpawn.model = PZ.clientUtils.hash(selectedSpawn.model)
+    selectedSpawn.model = PZShared.hash(selectedSpawn.model)
     SetPlayerModel(PlayerId(), selectedSpawn.model)
     SetModelAsNoLongerNeeded(selectedSpawn.model)
     RequestCollisionAtCoord(selectedSpawn.x, selectedSpawn.y, selectedSpawn.z)
@@ -52,7 +52,8 @@ Citizen.CreateThread(function()
     end
     ShutdownLoadingScreen()
     freezePlayer(PlayerId(), false)
-    PZ.debug("Spawn done, spawning (4/4)...")
+    PZShared.debug("Spawn done, spawning (4/4)...")
+    PZShared.sendInternal("playerSpawned")
 end)
 
 
