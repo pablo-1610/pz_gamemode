@@ -1,3 +1,3 @@
-PZ.translation["fr"] = {
+PZTranslations["FR"] = {
 
 }
