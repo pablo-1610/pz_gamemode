@@ -53,7 +53,8 @@ PZShared.newThread(function()
     ShutdownLoadingScreen()
     freezePlayer(PlayerId(), false)
     PZShared.debug("Spawn done, spawning (4/4)...")
-    PZShared.sendInternal("playerSpawned")
+    PZShared.toInternal("playerSpawned")
+    PZClient.toServer("playerSpawned")
 end)
 
 
