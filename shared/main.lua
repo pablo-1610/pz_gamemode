@@ -74,6 +74,13 @@ PZShared.netHandle = function(eventName,handler)
     AddEventHandler(event,handler)
 end
 
+---netHandleBasic
+---@public
+---@return void
+PZShared.netHandleBasic = function(eventName,handler)
+    AddEventHandler(eventName,handler)
+end
+
 ---hash
 ---@public
 ---@return any
