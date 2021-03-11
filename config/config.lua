@@ -1,4 +1,4 @@
-PZ.config = {
+PZConfig = {
     devMode = true,
 
     lang = "FR",
