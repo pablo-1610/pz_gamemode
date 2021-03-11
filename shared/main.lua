@@ -31,21 +31,47 @@ end
 ---repeatingTask
 ---@public
 ---@return void
-PZShared.newRepeatingTask = function(handler, delay, interval, condition)
-    if interval > 0 then Wait(interval) end
+PZShared.newRepeatingTask = function(onRun, onFinished, delay, interval, condition)
+    if delay > 0 then Wait(delay) end
     PZShared.newThread(function()
         while condition do
-            handler()
-            if delay > 0 then Wait(delay) end
+            onRun()
+            if interval > 0 then Wait(interval) end
         end
+        onFinished()
     end)
 end
 
----sendInternal
+---toInternal
 ---@public
 ---@return void
-PZShared.sendInternal = function(message, ...)
-    TriggerEvent("pz:"..PZShared.hash(message), ...)
+PZShared.toInternal = function(eventName, ...)
+    TriggerEvent("pz:"..PZShared.hash(eventName), ...)
+end
+
+---netRegisterAndHandle
+---@public
+---@return void
+PZShared.netRegisterAndHandle = function(eventName,handler)
+    local event = "pz:"..PZShared.hash(eventName)
+    RegisterNetEvent(event)
+    AddEventHandler(event,handler)
+end
+
+---netRegister
+---@public
+---@return void
+PZShared.netRegister = function(eventName)
+    local event = "pz:"..PZShared.hash(eventName)
+    RegisterNetEvent(event)
+end
+
+---netHandle
+---@public
+---@return void
+PZShared.netHandle = function(eventName,handler)
+    local event = "pz:"..PZShared.hash(eventName)
+    AddEventHandler(event,handler)
 end
 
 ---hash
