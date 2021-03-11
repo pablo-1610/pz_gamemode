@@ -1,9 +1,9 @@
-PZ.serverUtils = {
-    hash = function(notHashedModel)
-        return GetHashKey(notHashedModel)
-    end,
+---@class PZServer
+PZServer = {}
 
-    toClient = function(str, id, ...)
-        TriggerServerEvent("pz:" .. GetHashKey(str), id, ...)
-    end
-}
+---toClient
+---@public
+---@return void
+PZServer.toClient = function(eventName, targetId, ...)
+    TriggerServerEvent("pz:" .. PZShared.hash(eventName), targetId, ...)
+end
