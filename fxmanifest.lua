@@ -11,13 +11,19 @@ shared_scripts {
 }
 
 server_scripts {
+    'server/mysql/mysql-async.js',
+
     'server/*.lua',
 
     'server/utils/*.lua',
 
     'server/players/*.lua',
 
-    'server/listeners/*.lua'
+    'server/permissions/*.lua',
+
+    'server/listeners/*.lua',
+
+    'server/mysql/*.lua'
 }
 
 client_scripts {
@@ -30,6 +36,8 @@ client_scripts {
     'client/listeners/*.lua',
 
     'client/richPresence/*.lua',
+
+    'client/manager/*.lua',
 
     -- Implemting RageUI 1.0
     "services/RageUI/client/RMenu.lua",
