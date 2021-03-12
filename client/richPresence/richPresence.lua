@@ -7,6 +7,7 @@
 ---@field public buttons table
 ---@field public requiredUpdate boolean
 ---@field public text string
+---@field public task number
 PZRichPresence = {}
 PZRichPresence.__index = PZRichPresence
 
@@ -35,7 +36,7 @@ function PZRichPresence:invoke()
     end
     self.alive = true
     PZShared.debug("Rich Presence invoked")
-    PZShared.newRepeatingTask(function()
+    self.task = PZShared.newRepeatingTask(function()
         if self.requiredUpdate then
             PZShared.debug("Updating Rich Presence")
             SetDiscordAppId(self.appId)
@@ -56,7 +57,7 @@ function PZRichPresence:invoke()
         if self.alive then
             self.alive = false
         end
-    end, 0, 10000, self.alive)
+    end, 0, 10000)
 end
 
 ---destroy
@@ -66,6 +67,7 @@ end
 function PZRichPresence:destroy()
     if self.alive then
         self.alive = false
+        PZShared.cancelTaskNow(self.task)
         PZShared.debug("Rich Presence destroyed")
     end
 end
