@@ -20,6 +20,8 @@ PZConfig = {
 
     base = {
         -- Default players spawns
+        defaultDensity = 1.0,
+        defaultRank = 1,
         defaultSpawns = {
             {x = -9.96562, y = -1438.54, z = 31.1015, heading = 90.0}
         }
