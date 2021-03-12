@@ -12,6 +12,22 @@ PZClient.requestModel = function(notHashedModel)
     end
 end
 
+
+---spawnVehicleAndWarpPed
+---@public
+---@param model string
+---@param seat number
+---@param coords table
+---@param heading number
+---@return table
+PZClient.spawnVehicleAndWarpPed = function(model, seat, coords, heading)
+    local hash = GetHashKey(model)
+    local vehicle = CreateVehicle(hash, coords, heading or 0.0, true, false)
+    while not vehicle do Wait(1) end
+    TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, seat)
+    return vehicle
+end
+
 ---toServer
 ---@public
 ---@return void
