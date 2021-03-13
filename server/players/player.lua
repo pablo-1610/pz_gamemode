@@ -1,24 +1,24 @@
 ---@class PZPlayer
 ---@field public id number
 ---@field public license string
----@field public rank number
+---@field public rankID number
 ---@field public rolePlayIdentity table
 ---@field public name string
+---@field public rank PZRank
 PZPlayer = {}
 PZPlayer.__index = PZPlayer
 
 setmetatable(PZPlayer, {
-    __call = function(_, src, license, rank, rolePlayIdentity)
+    __call = function(_, src, license, rankID, rolePlayIdentity)
         local self = setmetatable({}, PZPlayer)
-
         -- Constructor
         self.id = tonumber(src)
         self.license = license
-        self.rank = rank
+        self.rankID = rankID
         self.rolePlayIdentity = rolePlayIdentity
         -- Def
         self.name = GetPlayerName(self.id)
-
+        self.rank = PZRanksManager.getRank(self.rankID)
         return self
     end
 })
@@ -44,11 +44,11 @@ function PZPlayer:getLicense()
     return self.license
 end
 
---- getRank
+--- getRankID
 ---@public
 ---@return number
-function PZPlayer:getRank()
-    return self.rank
+function PZPlayer:getRankID()
+    return self.rankID
 end
 
 --- getRolePlayIdentity
@@ -64,6 +64,13 @@ end
 ---@return number
 function PZPlayer:getDimension()
     return GetPlayerRoutingBucket(self.id)
+end
+
+--- getRank
+---@public
+---@return PZRank
+function PZPlayer:getRank()
+    return self.rank
 end
 
 --- setDimension
@@ -89,7 +96,7 @@ end
 ---@public
 ---@return void
 function PZPlayer:notify(str)
-    PZ.serverUtils.toClient("notifyPlayer", self.id, str)
+    PZServer.toClient("onNotificationReceive", self:getId(), str)
 end
 
 
