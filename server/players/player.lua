@@ -1,22 +1,29 @@
 ---@class PZPlayer
 ---@field public id number
+---@field public license string
+---@field public rankID number
+---@field public rolePlayIdentity table
 ---@field public name string
+---@field public rank PZRank
 PZPlayer = {}
 PZPlayer.__index = PZPlayer
 
 setmetatable(PZPlayer, {
-    __call = function(_, src)
+    __call = function(_, src, license, rankID, rolePlayIdentity)
         local self = setmetatable({}, PZPlayer)
-
+        -- Constructor
         self.id = tonumber(src)
+        self.license = license
+        self.rankID = rankID
+        self.rolePlayIdentity = rolePlayIdentity
+        -- Def
         self.name = GetPlayerName(self.id)
-
+        self.rank = PZRanksManager.getRank(self.rankID)
         return self
     end
 })
 
 --- getId
---- Get the current player's server id
 ---@public
 ---@return number
 function PZPlayer:getId()
@@ -24,23 +31,49 @@ function PZPlayer:getId()
 end
 
 --- getName
---- Get the current player's name
 ---@public
 ---@return string
 function PZPlayer:getName()
     return self.name
 end
 
+--- getLicense
+---@public
+---@return string
+function PZPlayer:getLicense()
+    return self.license
+end
+
+--- getRankID
+---@public
+---@return number
+function PZPlayer:getRankID()
+    return self.rankID
+end
+
+--- getRolePlayIdentity
+---@public
+---@return table
+function PZPlayer:getRolePlayIdentity()
+    return self.rolePlayIdentity
+end
+
+
 --- getDimension
---- Get current player's dimension
 ---@public
 ---@return number
 function PZPlayer:getDimension()
     return GetPlayerRoutingBucket(self.id)
 end
 
+--- getRank
+---@public
+---@return PZRank
+function PZPlayer:getRank()
+    return self.rank
+end
+
 --- setDimension
---- Set the current player's dimension
 ---@public
 ---@return number
 function PZPlayer:setDimension(dimID)
@@ -48,7 +81,6 @@ function PZPlayer:setDimension(dimID)
 end
 
 --- getLicense
---- Get the current player's license
 ---@public
 ---@return string
 function PZPlayer:getLicense()
@@ -61,11 +93,10 @@ function PZPlayer:getLicense()
 end
 
 --- notify
---- Notify the player
 ---@public
 ---@return void
 function PZPlayer:notify(str)
-    PZ.serverUtils.toClient("notifyPlayer", self.id, str)
+    PZServer.toClient("onNotificationReceive", self:getId(), str)
 end
 
 

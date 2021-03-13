@@ -43,7 +43,7 @@ local activeTasks = {}
 ---@return number
 PZShared.newRepeatingTask = function(onRun, onFinished, delay, interval)
     tasks = tasks + 1
-    local taskID = #tasks
+    local taskID = tasks
     activeTasks[taskID] = true
     if delay > 0 then
         Wait(delay)
@@ -69,6 +69,20 @@ PZShared.cancelTaskNow = function(taskID)
     if not activeTasks[taskID] then return end
     PZShared.debug(("Cancelling task (ID:%i)"):format(taskID))
     activeTasks[taskID] = nil
+end
+
+---getCurrentLang
+---@public
+---@return table
+PZShared.getCurrentLang = function()
+    return PZTranslations[PZConfig.lang:upper()] or "EN"
+end
+
+---translate
+---@public
+---@return string
+PZShared.translate = function(index)
+    return PZShared.getCurrentLang()[index]
 end
 
 ---toInternal

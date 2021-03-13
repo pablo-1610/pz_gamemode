@@ -1,0 +1,6 @@
+pz_policejob:
+    -> Faire un système de dispatch
+    -> Faire un système de casier permettant aux personnes mises en cellule de pouvoir récupérer leurs biens à la suite de leur garde à vue
+    -> Un bracelet électronique
+    -> Système de jail
+    -> Système de chien (à discuter)
