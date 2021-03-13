@@ -17,15 +17,15 @@ server_scripts {
 
     'server/*.lua',
 
+    'server/mysql/*.lua',
+
     'server/utils/*.lua',
 
     'server/players/*.lua',
 
-    'server/permissions/*.lua',
+    'server/rank/*.lua',
 
     'server/listeners/*.lua',
-
-    'server/mysql/*.lua',
 
     'addons/**/server/*.lua'
 }
