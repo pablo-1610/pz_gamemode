@@ -1,5 +1,12 @@
----@class
-PZClient = {}
+---sendNotification
+---@public
+---@return void
+---@param message string
+PZClient.sendNotification = function(message)
+    SetNotificationTextEntry("STRING")
+    AddTextComponentString(message)
+    DrawNotification(0,1)
+end
 
 ---requestModel
 ---@public
@@ -11,7 +18,6 @@ PZClient.requestModel = function(notHashedModel)
         Wait(1)
     end
 end
-
 
 ---spawnVehicleAndWarpPed
 ---@public
