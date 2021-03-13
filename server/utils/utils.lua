@@ -1,6 +1,3 @@
----@class PZServer
-PZServer = {}
-
 PZServer.getPlayerLicense = function(source)
     for k,v in pairs(GetPlayerIdentifiers(source))do
         if string.sub(v, 1, string.len("license:")) == "license:" then
@@ -14,5 +11,5 @@ end
 ---@public
 ---@return void
 PZServer.toClient = function(eventName, targetId, ...)
-    TriggerServerEvent("pz:" .. PZShared.hash(eventName), targetId, ...)
+    TriggerClientEvent("pz:" .. PZShared.hash(eventName), targetId, ...)
 end
