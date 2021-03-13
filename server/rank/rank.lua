@@ -10,17 +10,22 @@ PZRank.__index = PZRank
 setmetatable(PZRank, {
     __call = function(_, id, identifier, display, color, permissions)
         local self = setmetatable({}, PZRank)
-
         -- Constructor
         self.id = id
         self.identifier = identifier
         self.display = display
         self.color = color
         self.permissions = permissions
-
         return self
     end
 })
+
+---getId
+---@public
+---@return number
+function PZRank:getId()
+    return self.id
+end
 
 ---getPermissions
 ---@public
@@ -49,7 +54,6 @@ end
 function PZRank:hasPermissions(permissionsToCheck)
     local matchingAllowedPermissions = 0
     local matchingAllowedPermissionsToReach = #permissionsToCheck
-    if type(permissionsToCheck) ~= "table" then return end
     for k, rankPerms in pairs(self:getPermissions()) do
         for _,permToCheck in pairs(permissionsToCheck) do
             rankPerms = permissionsToCheck
