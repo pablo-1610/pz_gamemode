@@ -9,11 +9,33 @@ PZPlayersManager.players = {}
 ---@public
 ---@return void
 PZPlayersManager.create = function(playerID)
-    local player
+    local init = false
     PZDb.AsyncFetchAll("SELECT * FROM pz_users WHERE license = @a", {['@a'] = PZServer.getPlayerLicense(playerID)}, function(result)
         if result[1] then
-            player = PZPlayer(playerID, PZServer.getPlayerLicense(playerID), result[1].name, json.decode(result[1].rolePlayIdentity))
+            if not PZRanksManager.getRank(result[1].rankID) then
+                if PZRanksManager.getRank(PZConfig.base.defaultRank) then
+                    result[1].rank = PZConfig.base.defaultRank
+                else
+                    ---@type PZRank
+                    local minPermRank
+                    for _, v in pairs(PZRanksManager.getRanks()) do
+                        ---@type PZRank
+                        local rank = v
+                        if not minPermRank then
+                            minPermRank = rank
+                        else
+                            if #minPermRank:getPermissions() > #rank:getPermissions() then
+                                minPermRank = rank
+                            end
+                        end
+                    end
+                    result[1].rank = minPermRank:getId()
+                end
+            end
+            PZPlayersManager.players[playerID] = PZPlayer(playerID, PZServer.getPlayerLicense(playerID), result[1].rank, json.decode(result[1].rolePlayIdentity))
         else
+            PZPlayersManager.players[playerID] = PZPlayer(playerID, PZServer.getPlayerLicense(playerID), result[1].rank, {})
+            init = true
             PZShared.debug("Player isn't in the D.B")
             PZDb.AsyncExecute("INSERT INTO pz_users (license, name, rolePlayIdentity, createdAt, updatedAt) VALUES(@a,@b,@c,@d,@e)", {
                 ['a'] = PZServer.getPlayerLicense(playerID),
@@ -23,11 +45,9 @@ PZPlayersManager.create = function(playerID)
                 ['e'] = "" -- Add timestamp
             })
         end
-        if not player then
-            player = PZPlayer(playerID, PZServer.getPlayerLicense(playerID), GetPlayerName(playerID), {})
+        if init then
+            PZShared.toInternal("onPlayerAccountCreated", player)
         end
-        PZPlayersManager.players[playerID] = player
-        PZShared.debug("Creating a player (" .. player.id .. "), name: " .. player.name)
     end)
 end
 
