@@ -27,6 +27,10 @@ PZConfig = {
         }
     },
 
+    security = {
+        commands_antispam_cooldown = 2, -- In seconds
+    },
+
     jobs = {
 
     },
