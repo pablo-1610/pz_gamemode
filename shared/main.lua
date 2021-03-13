@@ -71,6 +71,20 @@ PZShared.cancelTaskNow = function(taskID)
     activeTasks[taskID] = nil
 end
 
+---getCurrentLang
+---@public
+---@return table
+PZShared.getCurrentLang = function()
+    return PZTranslations[PZConfig.lang:upper()] or "EN"
+end
+
+---translate
+---@public
+---@return string
+PZShared.translate = function(index)
+    return PZShared.getCurrentLang()[index]
+end
+
 ---toInternal
 ---@public
 ---@return void
