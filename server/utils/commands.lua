@@ -11,6 +11,9 @@ local function antiSpam(source)
     end)
 end
 
+---registerConsoleCommand
+---@public
+---@return void
 PZServer.registerConsoleCommand = function(name, onExecute)
     RegisterCommand(name, function(source, args, cmd)
         if source ~= 0 then
@@ -20,6 +23,9 @@ PZServer.registerConsoleCommand = function(name, onExecute)
     end, false)
 end
 
+---registerCommand
+---@public
+---@return void
 PZServer.registerCommand = function(name, onExecute)
     RegisterCommand(name, function(source, args, cmd)
         if source == 0 then
@@ -31,6 +37,9 @@ PZServer.registerCommand = function(name, onExecute)
     end, false)
 end
 
+---registerRestrictedCommand
+---@public
+---@return void
 PZServer.registerRestrictedCommand = function(name, permissions, onExecute, onNoPermissionExecute)
     RegisterCommand(name, function(source, args, cmd)
         if source == 0 then
@@ -43,7 +52,7 @@ PZServer.registerRestrictedCommand = function(name, permissions, onExecute, onNo
             if onNoPermissionExecute then
                 onNoPermissionExecute(source, args)
             else
-                player:notify(PZShared.translate("no_permission_command"):format(cmd))
+                player:notify(PZShared.translate("no_permission_command"):format(name))
             end
             return
         end

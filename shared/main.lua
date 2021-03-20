@@ -10,14 +10,14 @@ Citizen.CreateThread, CreateThread, Citizen.SetTimeout, SetTimeout, InvokeNative
 ---@public
 ---@return void
 PZShared.trace = function(message)
-    print("^2[INFOS]^7 " .. message)
+    print("^2[INFOS]^7 " .. message .. "^7")
 end
 
 ---warn
 ---@public
 ---@return void
 PZShared.warn = function(message)
-    print("^1[WARN]^7 " .. message)
+    print("^1[WARN]^7 " .. message .. "^7")
 end
 
 ---debug
@@ -27,7 +27,7 @@ PZShared.debug = function(message)
     if not PZConfig.devMode then
         return
     end
-    print("^3[DEBUG]^7 " .. message)
+    print("^3[DEBUG]^7 " .. message .. "^7")
 end
 
 ---@public
@@ -129,4 +129,28 @@ end
 ---@return any
 PZShared.hash = function(notHashedModel)
     return GetHashKey(notHashedModel)
+end
+
+---getUsage
+---@public
+---@return void
+PZShared.getUsage = function(cmd, args)
+    local sb = ""
+    for _, arg in pairs(args) do
+        sb = sb.." "..PZColor.reset.." <"..PZColor.yellow..arg..PZColor.reset..">"
+    end
+    return PZShared.translate("cmd_usage")..": "..PZColor.green..cmd..sb
+end
+
+---registerAddonLocales
+---@public
+---@return void
+PZShared.registerAddonLocales = function(locales)
+    for lang,translations in pairs(locales) do
+        if PZTranslations[lang] then
+            for key,translation in pairs(translations) do
+                PZTranslations[lang][key] = translation
+            end
+        end
+    end
 end

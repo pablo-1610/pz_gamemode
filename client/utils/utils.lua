@@ -40,3 +40,14 @@ end
 PZClient.toServer = function(eventName, ...)
     TriggerServerEvent("pz:" .. PZShared.hash(eventName), ...)
 end
+
+PZColor = {
+    red = "~r~",
+    green = "~g~",
+    yellow = "~y~",
+    orange = "~o~",
+    blue = "~b~",
+    cyan = "",
+    pink = "",
+    reset = "~s~"
+}

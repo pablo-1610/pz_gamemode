@@ -34,15 +34,16 @@ PZPlayersManager.create = function(playerID)
             end
             PZPlayersManager.players[playerID] = PZPlayer(playerID, PZServer.getPlayerLicense(playerID), result[1].rank, json.decode(result[1].rolePlayIdentity))
         else
-            PZPlayersManager.players[playerID] = PZPlayer(playerID, PZServer.getPlayerLicense(playerID), result[1].rank, {})
+            PZPlayersManager.players[playerID] = PZPlayer(playerID, PZServer.getPlayerLicense(playerID), PZConfig.base.defaultRank, {})
             init = true
             PZShared.debug("Player isn't in the D.B")
-            PZDb.AsyncExecute("INSERT INTO pz_users (license, name, rolePlayIdentity, createdAt, updatedAt) VALUES(@a,@b,@c,@d,@e)", {
+            PZDb.AsyncExecute("INSERT INTO pz_users (license, name, rank, rolePlayIdentity, createdAt, updatedAt) VALUES(@a,@b,@c,@d,@e,@f)", {
                 ['a'] = PZServer.getPlayerLicense(playerID),
                 ['b'] = GetPlayerName(playerID),
-                ['c'] = json.encode({}),
-                ['d'] = "", -- Add timestamp
-                ['e'] = "" -- Add timestamp
+                ['c'] = tonumber(PZConfig.base.defaultRank),
+                ['d'] = json.encode({}),
+                ['e'] = 0, -- Add timestamp
+                ['f'] = 0 -- Add timestamp
             })
         end
         if init then

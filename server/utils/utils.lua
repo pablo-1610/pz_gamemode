@@ -13,3 +13,16 @@ end
 PZServer.toClient = function(eventName, targetId, ...)
     TriggerClientEvent("pz:" .. PZShared.hash(eventName), targetId, ...)
 end
+
+---@class PZColor
+---@public
+PZColor = {
+    red = "^1",
+    green = "^2",
+    yellow = "^3",
+    blue = "^4",
+    cyan = "^5",
+    orange = "",
+    pink = "^6",
+    reset = "^7"
+}
