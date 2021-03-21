@@ -31,3 +31,22 @@ PZRanksManager.getRanks = function()
     return PZRanksManager.ranks
 end
 
+---setPlayerRank
+---@public
+---@return boolean
+PZRanksManager.setRank = function(playerID, rankID)
+    if not PZPlayersManager.getPlayer(playerID) or not PZRanksManager.getRank(rankID) then
+        return false
+    end
+    ---@type PZPlayer
+    local player = PZPlayersManager.getPlayer(playerID)
+    ---@type PZRank
+    local rank = PZRanksManager.getRank(rankID)
+    player.rankID = rankID
+    player.rank = rank
+    PZDb.AsyncExecute("UPDATE pz_users SET rank = @a WHERE license = @b", { ['a'] = rankID, ['b'] = player.getLicense() }, function()
+        PZShared.debug("Player ("..playerID..")'s rank has been updated to: "..rank.display)
+        return true
+    end)
+end
+
