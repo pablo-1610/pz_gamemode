@@ -12,7 +12,7 @@ PZPlayersManager.create = function(playerID)
     local init = false
     PZDb.AsyncFetchAll("SELECT * FROM pz_users WHERE license = @a", {['@a'] = PZServer.getPlayerLicense(playerID)}, function(result)
         if result[1] then
-            if not PZRanksManager.getRank(result[1].rankID) then
+            if not PZRanksManager.getRank(result[1].rank) then
                 if PZRanksManager.getRank(PZConfig.base.defaultRank) then
                     result[1].rank = PZConfig.base.defaultRank
                 else

@@ -51,13 +51,21 @@ function PZPlayer:getRankID()
     return self.rankID
 end
 
+---setRank
+---@public
+---@return void
+---@param rank PZRank
+function PZPlayer:setRank(rank)
+    self.rank = rank
+    self.rankID = rank:getId()
+end
+
 --- getRolePlayIdentity
 ---@public
 ---@return table
 function PZPlayer:getRolePlayIdentity()
     return self.rolePlayIdentity
 end
-
 
 --- getDimension
 ---@public

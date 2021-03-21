@@ -42,11 +42,9 @@ PZRanksManager.setRank = function(playerID, rankID)
     local player = PZPlayersManager.getPlayer(playerID)
     ---@type PZRank
     local rank = PZRanksManager.getRank(rankID)
-    player.rankID = rankID
-    player.rank = rank
-    PZDb.AsyncExecute("UPDATE pz_users SET rank = @a WHERE license = @b", { ['a'] = rankID, ['b'] = player.getLicense() }, function()
-        PZShared.debug("Player ("..playerID..")'s rank has been updated to: "..rank.display)
-        return true
-    end)
+    player:setRank(rank)
+    player:notify(PZShared.translate("rank_changed")..": ~y~"..rank.display)
+    PZDb.SyncExecute("UPDATE pz_users SET rank = @a WHERE license = @b", { ['a'] = rankID, ['b'] = player:getLicense() })
+    return true
 end
 
