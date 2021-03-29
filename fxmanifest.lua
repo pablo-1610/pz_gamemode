@@ -3,6 +3,14 @@ games { 'gta5' };
 
 resource_type 'gametype' { name = 'RolePlay' }
 
+files {
+    'web/index.html',
+    'web/overlay.png',
+    'web/styles.css'
+}
+
+ui_page('web/index.html')
+
 shared_scripts {
     'shared/*.lua',
     'config/*.lua',
@@ -25,6 +33,8 @@ server_scripts {
 
     'server/rank/*.lua',
 
+    'server/sync/*.lua',
+
     'server/listeners/*.lua',
 
     'addons/**/server/*.lua'
@@ -36,6 +46,8 @@ client_scripts {
     'client/utils/*.lua',
 
     'client/spawn/*.lua',
+
+    'client/sync/*.lua',
 
     'client/listeners/*.lua',
 

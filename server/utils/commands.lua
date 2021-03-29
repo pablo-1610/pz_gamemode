@@ -31,7 +31,9 @@ PZServer.registerCommand = function(name, onExecute)
         if source == 0 then
             return
         end
-        if not checkAntiSpam(source) then return end
+        if not checkAntiSpam(source) then
+            return
+        end
         antiSpam(source)
         onExecute(source, args, cmd)
     end, false)
@@ -40,15 +42,18 @@ end
 ---registerRestrictedCommand
 ---@public
 ---@return void
-PZServer.registerRestrictedCommand = function(name, permissions, onExecute, onNoPermissionExecute)
+PZServer.registerRestrictedCommand = function(name, permission, onExecute, onNoPermissionExecute, allowFromServerConsole)
     RegisterCommand(name, function(source, args, cmd)
         if source == 0 then
+            if allowFromServerConsole then
+                onExecute(source, args, cmd)
+            end
             return
         end
         ---@type PZPlayer
         local player = PZPlayersManager.getPlayer(source)
         local rank = player:getRank()
-        if not rank:hasPermissions(permissions) then
+        if not rank:hasPermission(permission) then
             if onNoPermissionExecute then
                 onNoPermissionExecute(source, args)
             else
@@ -56,7 +61,9 @@ PZServer.registerRestrictedCommand = function(name, permissions, onExecute, onNo
             end
             return
         end
-        if not checkAntiSpam(source) then return end
+        if not checkAntiSpam(source) then
+            return
+        end
         antiSpam(source)
         onExecute(source, args, cmd)
     end)

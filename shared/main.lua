@@ -92,12 +92,22 @@ PZShared.toInternal = function(eventName, ...)
     TriggerEvent("pz:" .. PZShared.hash(eventName), ...)
 end
 
+local registredEvents = {}
+local function isEventRegistred(eventName)
+    for k,v in pairs(registredEvents) do
+        if v == eventName then return true end
+    end
+    return false
+end
 ---netRegisterAndHandle
 ---@public
 ---@return void
 PZShared.netRegisterAndHandle = function(eventName, handler)
     local event = "pz:" .. PZShared.hash(eventName)
-    RegisterNetEvent(event)
+    if not isEventRegistred(event) then
+        RegisterNetEvent(event)
+        table.insert(registredEvents, event)
+    end
     AddEventHandler(event, handler)
 end
 
@@ -153,4 +163,11 @@ PZShared.registerAddonLocales = function(locales)
             end
         end
     end
+end
+
+---second
+---@public
+---@return number
+PZShared.second = function(from)
+    return from*1000
 end

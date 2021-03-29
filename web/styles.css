@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+body .img {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  bottom: 20px;
+}
+
+body .img .line {
+  display: block;
+  width: 350px;
+}
+
+body .img #right-img {
+  margin-left: 60px;
+}
+
+body .img #left-img {
+  margin-right: 60px;
+  transform: scaleX(-1);
+}
+
+body .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+body .container .text {
+  color: white;
+  font-family: sans-serif;
+  font-weight: 300;
+}
+
+body .container #life-count {
+  font-size: 4em;
+}
+
+body .container .infos-bars {
+  margin: 0 110px 0 130px;
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+body .container .infos-bars .stuff-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+body .container .infos-bars .stuff-column i {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: white;
+}
+
+body .container .infos-bars .stuff-column .trapeze-border {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 14px;
+  clip-path: polygon(0% 0%, 100% 0, 85% 100%, 17% 100%);
+  background-color: #a3a3a3;
+}
+
+body .container .infos-bars .stuff-column .trapeze-border .trapeze {
+  width: 70px;
+  height: 10px;
+  clip-path: polygon(4% 0%, 96% 0, 85% 100%, 17% 100%);
+  background-color: white;
+}
+
+body .container .infos-bars .stuff-column .trapeze-border .trapeze .bar {
+  height: 100%;
+}
+
+body .container .infos-bars .stuff-column .trapeze-border .trapeze #hunger-bar {
+  background-color: green;
+}
+
+body .container .infos-bars .stuff-column .trapeze-border .trapeze #water-bar {
+  background-color: orange;
+}
+
+body .container .infos-bars .stuff-column .trapeze-border .trapeze #oxygene-bar {
+  background-color: #6797f0;
+}
+
+body .container #job {
+  font-size: 3em;
+}

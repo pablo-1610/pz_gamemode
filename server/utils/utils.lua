@@ -14,6 +14,14 @@ PZServer.toClient = function(eventName, targetId, ...)
     TriggerClientEvent("pz:" .. PZShared.hash(eventName), targetId, ...)
 end
 
+---toAll
+---@public
+---@return void
+PZServer.toAll = function(eventName, ...)
+    TriggerClientEvent("pz:" .. PZShared.hash(eventName), -1, ...)
+end
+
+
 ---@class PZColor
 ---@public
 PZColor = {

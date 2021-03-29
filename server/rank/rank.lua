@@ -34,6 +34,13 @@ function PZRank:getPermissions()
     return self.permissions
 end
 
+---getDisplayFormat
+---@public
+---@return string
+function PZRank:getDisplayFormat()
+    return self.display
+end
+
 ---hasPermission
 ---@public
 ---@return boolean
@@ -62,3 +69,19 @@ function PZRank:hasPermissions(permissionsToCheck)
     end
     return matchingAllowedPermissions == matchingAllowedPermissionsToReach
  end
+
+-- TODO -> Fix problem, db execution seems to not execute callback function...
+
+---addPermission
+---@public
+function PZRank:addPermission(permission)
+    local fakeTable = self.permissions
+    table.insert(fakeTable, permission)
+    PZDb.AsyncExecute("UPDATE pz_ranks SET permissions = @a WHERE id = @b", {
+        ['a'] = json.encode(fakeTable),
+        ['b'] = self.id
+    }, function(done)
+        self.permissions = fakeTable
+        PZShared.toInternal("permissionAddedToRank", permission)
+    end)
+end
