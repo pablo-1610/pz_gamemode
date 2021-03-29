@@ -74,6 +74,7 @@ function PZRank:hasPermissions(permissionsToCheck)
 
 ---addPermission
 ---@public
+---@return void
 function PZRank:addPermission(permission)
     local fakeTable = self.permissions
     table.insert(fakeTable, permission)
